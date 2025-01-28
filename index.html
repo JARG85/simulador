@@ -43,7 +43,7 @@
         var bombs;
         var platforms;
         var cursors;
-        var score = 210;
+        var score = 0;
         var gameOver = false;
         var scoreText;
 
@@ -204,7 +204,7 @@
 
     </script>
 
-    <div class="hidden" id="simulador">
+    <div id="simulador" class="hidden">
         <h1 class="font-bold text-green-600 text-center text-xl mt-10">SIMULADOR DE CULTIVO AUTÓNOMO</h1>
 
         <div class=" w-full min-h-screen flex justify-center mt-20">
@@ -262,7 +262,7 @@
             // Array handle humedad, luz, temperatura, crecimiento, Altura, T.crecer
             var color_charts = [
                 {
-                    value: 6,
+                    value: 0,
                     // Specify the style for single bar
                     itemStyle: {
                         color: '#3b82f6',
@@ -273,7 +273,7 @@
                 },
 
                 {
-                    value: 6,
+                    value: 0,
                     // Specify the style for single bar
                     itemStyle: {
                         color: '#ecb308',
@@ -284,7 +284,7 @@
                 },
 
                 {
-                    value: 6,
+                    value: 0,
                     // Specify the style for single bar
                     itemStyle: {
                         color: '#b91c1c',
@@ -295,7 +295,7 @@
                 },
 
                 {
-                    value: 6,
+                    value: 0,
                     // Specify the style for single bar
                     itemStyle: {
                         color: '#c2410c',
@@ -306,7 +306,7 @@
                 },
 
                 {
-                    value: 6,
+                    value: 0,
                     // Specify the style for single bar
                     itemStyle: {
                         color: '#15803d',
@@ -316,7 +316,7 @@
                     }
                 },
                 {
-                    value: 18,
+                    value: 6,
                     // Specify the style for single bar
                     itemStyle: {
                         color: '#b7b7b7',
@@ -357,14 +357,22 @@
             //logica botones
             var btn_humedad_plus = document.getElementById('humedad_plus')
 
-            let up_limit = 18
+            let up_limit = 6
+
+            let set_image_by_number = (number, category) => {
+                if (number == 0) {
+                    visualizador.src = './assets/first.jpeg'
+                } else {
+                    visualizador.src = `./assets/${category}/${number}.jpeg`
+                }
+            }
 
             btn_humedad_plus.addEventListener('click', function () {
                 if (color_charts[0].value < up_limit) {
                     color_charts[0].value += 2
                     myChart.setOption(option);
                     visualizador.src = './assets/riego.gif'
-                    setTimeout(() => { visualizador.src = './assets/first.jpeg' }, 800);
+                    setTimeout(() => { set_image_by_number(color_charts[0].value, 'humedad') }, 800);
                 }
             })
             var btn_humedad_less = document.getElementById('humedad_less')
@@ -373,7 +381,7 @@
                     color_charts[0].value -= 2
                     myChart.setOption(option);
                     visualizador.src = './assets/cerrado.jpg'
-                    setTimeout(() => { visualizador.src = './assets/first.jpeg' }, 800);
+                    setTimeout(() => { set_image_by_number(color_charts[0].value, 'humedad') }, 800);
                 }
             })
 
@@ -383,7 +391,7 @@
                     color_charts[1].value += 2
                     myChart.setOption(option);
                     visualizador.src = './assets/sol.gif'
-                    setTimeout(() => { visualizador.src = './assets/first.jpeg' }, 800);
+                    setTimeout(() => { set_image_by_number(color_charts[1].value, 'luz') }, 800);
                 }
             })
             var btn_luz_less = document.getElementById('luz_less')
@@ -392,7 +400,7 @@
                     color_charts[1].value -= 2
                     myChart.setOption(option);
                     visualizador.src = './assets/sol.gif'
-                    setTimeout(() => { visualizador.src = './assets/first.jpeg' }, 800);
+                    setTimeout(() => { set_image_by_number(color_charts[1].value, 'luz') }, 800);
                 }
             })
 
@@ -402,7 +410,7 @@
                     color_charts[2].value += 2
                     myChart.setOption(option);
                     visualizador.src = './assets/fuego.gif'
-                    setTimeout(() => { visualizador.src = './assets/first.jpeg' }, 800);
+                    setTimeout(() => { set_image_by_number(color_charts[2].value, 'temperatura') }, 800);
                 }
             })
             var btn_temperatura_less = document.getElementById('temperatura_less')
@@ -411,7 +419,7 @@
                     color_charts[2].value -= 2
                     myChart.setOption(option);
                     visualizador.src = './assets/hielo.gif'
-                    setTimeout(() => { visualizador.src = './assets/first.jpeg' }, 800);
+                    setTimeout(() => { set_image_by_number(color_charts[2].value, 'temperatura') }, 800);
                 }
             })
 
@@ -421,7 +429,7 @@
                     color_charts[3].value += 2
                     myChart.setOption(option);
                     visualizador.src = './assets/altura.gif'
-                    setTimeout(() => { visualizador.src = './assets/first.jpeg' }, 800);
+                    setTimeout(() => { set_image_by_number(color_charts[3].value, 'crecimiento') }, 800);
                 }
             })
             var btn_altura_less = document.getElementById('altura_less')
@@ -430,7 +438,7 @@
                     color_charts[3].value -= 2
                     myChart.setOption(option);
                     visualizador.src = './assets/altura.gif'
-                    setTimeout(() => { visualizador.src = './assets/first.jpeg' }, 800);
+                    setTimeout(() => { set_image_by_number(color_charts[3].value, 'crecimiento') }, 800);
                 }
             })
 
@@ -440,7 +448,7 @@
                     color_charts[4].value += 2
                     myChart.setOption(option);
                     visualizador.src = './assets/tiempo.gif'
-                    setTimeout(() => { visualizador.src = './assets/first.jpeg' }, 800);
+                    setTimeout(() => { set_image_by_number(color_charts[4].value, 'tiempo') }, 800);
                 }
             })
             var btn_crecimiento_less = document.getElementById('crecimiento_less')
@@ -449,7 +457,7 @@
                     color_charts[4].value -= 2
                     myChart.setOption(option);
                     visualizador.src = './assets/tiempo.gif'
-                    setTimeout(() => { visualizador.src = './assets/first.jpeg' }, 800);
+                    setTimeout(() => { set_image_by_number(color_charts[4].value, 'tiempo') }, 800);
                 }
             })
         </script>
